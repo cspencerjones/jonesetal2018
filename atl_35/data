@@ -1,0 +1,101 @@
+# ====================
+# | Model parameters |
+# ====================
+#
+# Continuous equation parameters
+ &PARM01
+ tRef = 32*0.,
+ sRef = 32*35.,
+ no_slip_bottom=.TRUE.,
+ no_slip_sides=.TRUE.,
+ viscAr=1.E-4,
+ viscAh=40.E3,
+ diffKhT=0.,
+# diffKrT=1.E-5,
+ diffKrNrT=0.0079, 0.0047, 0.0015,0.00026, 0.000048,0.000022,
+           0.00002, 0.00002,0.00002,0.00002,0.00002,0.00002,
+           0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,
+           0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,
+           0.00002,0.00002,0.00002,0.00002,
+ diffKhS=0.,
+# diffKrS=2.E-5,
+ diffKrNrS=0.0079, 0.0047, 0.0015,0.00026, 0.000048,0.000022,
+           0.00002, 0.00002,0.00002,0.00002,0.00002,0.00002,
+           0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,
+           0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,0.00002,
+           0.00002,0.00002,0.00002,0.00002,
+ rhonil=1035.,
+ rhoConstFresh=1000.,
+ eosType = 'LINEAR',
+ ivdc_kappa=10.,
+ implicitDiffusion=.TRUE., 
+ bottomDragLinear=1.E-3,
+ exactConserv=.TRUE.,
+ useRealFreshWaterFlux=.FALSE.,
+ useSingleCpuIO=.TRUE.,
+# turn on looped cells
+ hFacMin=.05,
+ hFacMindr=50.,
+# set precision of data files
+ readBinaryPrec=32,
+ tempAdvScheme=80, 
+ saltAdvScheme=80, 
+ staggerTimeStep=.TRUE.,
+ debugLevel=2, 
+ &
+
+# Elliptic solver parameters
+ &PARM02
+ cg2dMaxIters=500,
+ cg2dTargetResidual=1.E-13,
+ printResidualFreq=37606140,
+ &
+
+# Time stepping parameters
+ &PARM03
+ nIter0=32600000,
+ nTimeSteps = 48000000,
+# 100 years of integration will yield a reasonable flow field
+# startTime =          0.,
+# endTime   = 3110400000.,
+ deltaTmom = 1800.,
+ deltaTtracer= 21600.,
+ deltaTClock = 21600.,
+ deltaTfreesurf= 21600.,
+ abEps = 0.1,
+ pChkptFreq= 4320000000.,
+ chkptFreq=  4320000000.,
+ dumpFreq= 43200000000.,
+ monitorFreq=864000000.,
+# 10 days restoring timescale for temperature
+ tauThetaClimRelax=  864000.,
+# 6 months restoring timescale for salinity
+# tauSaltClimRelax = 15552000.,
+# periodicExternalForcing=.FALSE.,
+# externForcingPeriod=2592000.,
+# externForcingCycle=31104000.,
+ pickupStrictlyMatch=.FALSE., 
+ &
+
+# Gridding parameters
+ &PARM04
+ usingSphericalPolarGrid=.TRUE.,
+ delR= 32*125.,
+ ygOrigin=-70.,
+ dySpacing=0.9722,
+ dxSpacing=0.9722,
+ &
+
+# Input datasets
+ &PARM05
+ bathyFile=      'bathy.bin',
+ zonalWindFile=  'taux.bin',
+ meridWindFile=  'tauy.bin',
+ thetaClimFile=  'sst2.bin',
+# saltClimFile=   'lev_sss.bin',
+# surfQFile=      'ncep_qnet.bin',
+# the_run_name=   'global_oce_latlon',
+# fresh water flux is turned on, comment next line to it turn off
+# (maybe better with surface salinity restoring)
+ EmPmRFile=      'sflux.bin',
+ &
